@@ -4,6 +4,7 @@ class SpotifyAPIController{
     async fetchTrack(req, res){
         const { query } = req.query;
         try {
+            log
             const token = await spotifyApi.getAccessToken();
             const tracks = await spotifyApi.searchTracks(query, token);
             res.json(tracks.map(track => ({
@@ -19,4 +20,4 @@ class SpotifyAPIController{
     }
 }
 
-export default new SpotifyAPIController();
+module.exports = new SpotifyAPIController();

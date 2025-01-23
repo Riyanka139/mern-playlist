@@ -1,6 +1,13 @@
 export interface playlist{
+   _id?: string;
    name: string;
-   owner: string;
+   owner?: User;
    isPublic: boolean;
-   songs:any 
+   songs?:any 
+}
+
+interface User{
+   _id: string;
+   name: string;
+   email:string
 }

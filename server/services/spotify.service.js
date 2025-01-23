@@ -1,3 +1,4 @@
+const axios = require('axios')
 class SpotifyAPI{
     async getAccessToken() {
         try {
@@ -31,4 +32,4 @@ class SpotifyAPI{
     }
 }
 
-export default new SpotifyAPI();
+module.exports = new SpotifyAPI();

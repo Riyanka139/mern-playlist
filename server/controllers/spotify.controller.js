@@ -14,7 +14,7 @@ class SpotifyAPIController{
                 duration: track.duration_ms,
             })));
         } catch (err) {
-            res.status(500).json({ error: 'Failed to fetch tracks from Spotify' });
+            res.status(500).json({ error: 'Failed to fetch tracks from Spotify', error:err });
         }
     }
 }

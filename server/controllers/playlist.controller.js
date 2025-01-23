@@ -6,9 +6,9 @@ class PlaylistController{
         try {
             const newPlaylist = new Playlist({ name, description, songs, owner:req.user._id, isPublic });
             const savedPlaylist = await newPlaylist.save();
-            res.status(201).json({data:savedPlaylist});
+            res.status(201).json(savedPlaylist);
         } catch (err) {
-            res.status(500).json({ error: 'Failed to create playlist' });
+            res.status(500).json({ message: 'Failed to create playlist', error:err });
         }
     }
 
@@ -16,9 +16,9 @@ class PlaylistController{
         const { owner } = req.user._id;
         try {
             const playlists = await Playlist.find({ owner });
-            res.json(playlists);
+            res.status(200).json(playlists);
         } catch (err) {
-            res.status(500).json({ error: 'Failed to fetch playlists' });
+            res.status(500).json({ error: 'Failed to fetch playlists', error:err });
         }
     }
 
@@ -29,9 +29,9 @@ class PlaylistController{
             if (!playlist.isPublic) {
                 return res.status(403).json({ error: 'Playlist is not public' });
             }
-            res.json(playlist);
+            res.status(200).json(playlist);
         } catch (err) {
-            res.status(500).json({ error: 'Failed to fetch playlist' });
+            res.status(500).json({ error: 'Failed to share playlist', error:err });
         }
     }
 
@@ -39,9 +39,9 @@ class PlaylistController{
         const { id } = req.params;
         try {
             await Playlist.findByIdAndDelete(id);
-            res.json({ message: 'Playlist deleted successfully' });
+            res.status(200).json({ message: 'Playlist deleted successfully' });
         } catch (err) {
-            res.status(500).json({ error: 'Failed to delete playlist' });
+            res.status(500).json({ error: 'Failed to delete playlist', error:err });
         }
     }
 }

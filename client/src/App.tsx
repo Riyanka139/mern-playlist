@@ -1,35 +1,48 @@
-import { AppBar, Toolbar, Typography } from "@mui/material";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import {
+  AppBar,
+  IconButton,
+  Menu,
+  MenuItem,
+  Toolbar,
+  Typography,
+} from "@mui/material";
+import { useEffect, useState } from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "tailwindcss/tailwind.css";
-import ProtectedRoute from "./component/ProtectedRoute";
+import AuthRoute from "./component/AuthRoute";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 
 function App() {
-  
+
   return (
     <Router>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" className="flex-grow">
-            Spotify Dashboard
-          </Typography>
-        </Toolbar>
-      </AppBar>
       <Routes>
         <Route
           path="/"
-          element={<Login />}
+          element={
+            <AuthRoute type="public">
+              <Login />
+            </AuthRoute>
+          }
         />
         <Route
           path="/register"
-          element={<Register />}
+          element={
+            <AuthRoute type="public">
+              <Register />
+            </AuthRoute>
+          }
         />
         <Route
           path="/dashboard"
           element={
-           <ProtectedRoute><Dashboard/></ProtectedRoute>
+            <AuthRoute type="protected">
+              <Dashboard />
+            </AuthRoute>
+            // <Dashboard />
           }
         />
       </Routes>
